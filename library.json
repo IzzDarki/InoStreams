@@ -1,0 +1,34 @@
+
+{
+	"name": "InoStreams",
+	"version": "1.0.0",
+	"description": "Communication library for Arduino: provides standard c++ like streams for input and output via serial interface, via pins or for strings",
+	"keywords": [
+		"ino",
+		"stream",
+		"streams",
+		"stringstream",
+		"iostream"
+	],
+	"authors" : {
+		"name": "Bennet",
+		"email": "bennet0108@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/IzzDarki/InoStreams.git"
+	},
+	"license": "MIT",
+	"frameworks": "arduino",
+	"platforms": "atmelavr",
+	"dependencies": [
+		{
+			"name": "Ino",
+			"authors": "Bennet"
+		},
+		{
+			"name": "SoftwareSerial",
+			"authors": "Arduino"
+		}
+	]
+}
