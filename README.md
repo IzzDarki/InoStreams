@@ -3,6 +3,15 @@
 #                           Streams                           #
 ---------------------------------------------------------------
 
+This library provides standard c++ like streams for communication via serial interface, via pins or for strings.
+
+---------------------------------------------------------------
+
+This library is dependent on the Ino (core) library: https://github.com/IzzDarki/Ino.git
+and the SoftwareSerial library from Arduino (which is installed with the Arduino IDE and other Arduino development environment)
+
+---------------------------------------------------------------
+
 Preprocessor definitions (users can modify)
 
 INO_STANDARDIN
