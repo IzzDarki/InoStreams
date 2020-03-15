@@ -292,6 +292,8 @@ namespace ino {
 		template <typename T>
 		inline void Negative(T&& Num)
 		{
+			//Serial.println("Custom note from .......Negative(T&&)");
+			//Serial.println(Num < 0 ? "negative" : "positive");
 			if (Num < 0)
 			{
 				InternalWrite('-');
@@ -501,6 +503,8 @@ namespace ino {
 
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -511,7 +515,6 @@ namespace ino {
 			if (Decimals.Decimals)
 			{
 				InternalWrite('.');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Decimals.Decimals; C++)
 				{
 					Fraction *= 10;
@@ -541,6 +544,8 @@ namespace ino {
 			
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -554,7 +559,6 @@ namespace ino {
 					InternalWrite('.');
 				else 
 					InternalWrite(',');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Decimals.Decimals; C++)
 				{
 					Fraction *= 10;
@@ -584,12 +588,13 @@ namespace ino {
 			
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
 			{
 				InternalWrite('.');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Precision.PrecisionVal; C++)
 				{
 					Fraction *= 10;
@@ -616,6 +621,8 @@ namespace ino {
 
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -626,7 +633,6 @@ namespace ino {
 			if (Decimals.Decimals)
 			{
 				InternalWrite('.');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Decimals.Decimals; C++)
 				{
 					Fraction *= 10;
@@ -656,6 +662,8 @@ namespace ino {
 			
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
@@ -664,7 +672,6 @@ namespace ino {
 					InternalWrite('.');
 				else 
 					InternalWrite(',');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Precision.PrecisionVal; C++)
 				{
 					Fraction *= 10;
@@ -691,6 +698,8 @@ namespace ino {
 			
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -704,7 +713,6 @@ namespace ino {
 					InternalWrite('.');
 				else 
 					InternalWrite(',');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Decimals.Decimals; C++)
 				{
 					Fraction *= 10;
@@ -734,12 +742,13 @@ namespace ino {
 
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
 			{
 				InternalWrite('.');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Precision.PrecisionVal; C++)
 				{
 					Fraction *= 10;
@@ -766,6 +775,8 @@ namespace ino {
 
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
+			Integer = abs(Integer);
+			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
@@ -774,7 +785,6 @@ namespace ino {
 					InternalWrite('.');
 				else 
 					InternalWrite(',');
-				Fraction = abs(Fraction);
 				for (int C = 0; C < Precision.PrecisionVal; C++)
 				{
 					Fraction *= 10;
