@@ -501,10 +501,9 @@ namespace ino {
 				return;
 			}
 
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -542,10 +541,9 @@ namespace ino {
 				return;
 			}
 			
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -586,10 +584,9 @@ namespace ino {
 				return;
 			}
 			
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
@@ -619,10 +616,9 @@ namespace ino {
 				return;
 			}		
 
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -660,10 +656,9 @@ namespace ino {
 				return;
 			}
 			
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
@@ -696,10 +691,9 @@ namespace ino {
 				return;
 			}	
 			
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			auto Decimals = GetTotalDecimals(Fraction);
 			if (Decimals.Decimals == 0 && Decimals.Round)
@@ -740,10 +734,9 @@ namespace ino {
 				return;
 			}	
 
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
@@ -773,10 +766,9 @@ namespace ino {
 				return;
 			}	
 
+			Negative(Num);
 			T Integer;
 			T Fraction = ModFunction(Num, Integer);
-			Integer = abs(Integer);
-			Negative(Fraction);
 
 			DefaultSignedInt(Integer);
 			if (Precision.PrecisionVal)
