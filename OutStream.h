@@ -947,7 +947,6 @@ namespace ino {
 	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceType<T>::type>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
 	OutStream& OutStream::operator<<(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultFloat(Data.Var, Data.template Get<DecimalpointFormats>(), Data.template Get<SpecialnumberFormats>());
-		Data.Var = 45;
 		FinishTransfer();
 		return *this;
 	}
