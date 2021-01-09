@@ -99,100 +99,100 @@ namespace ino {
 		// * ----- Baseformat-specific input operators ----------------------------------------------------------------------------
 		  //------ Signed integral output operator --------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<IsSigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<IsSigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const BaseFormat<T>& Data);
 
 		  //------ Unsigned integral output operator ------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<IsUnsigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<IsUnsigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const BaseFormat<T>& Data);
 
 
 		// * ----- Caseformat-specific input operators ----------------------------------------------------------------------------
 		  //------ Char output operator -------------------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_same<char, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_same<char, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const CaseFormat<T>& Data);
 
 		  //------ Char* and Char[] input operator --------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExeptConst<T>::type>::value || (std::is_array<typename std::remove_reference<T>::type>::value && std::is_same<char, typename ElementType<T>::type>::value)) && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExceptConst<T>::type>::value || (std::is_array<typename std::remove_reference<T>::type>::value && std::is_same<char, typename ElementType<T>::type>::value)) && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const CaseFormat<T>& Data);
 
 		  //------ String input operator ------------------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_same<String, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_same<String, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const CaseFormat<T>& Data);
 
 
 		// * ----- Boolformat-specific input operators ----------------------------------------------------------------------------
 		  //------ Bool input operator --------------------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_same<bool, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_same<bool, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const BoolFormat<T>& Data);
 
 		// * ----- Decimalpointformat-specific input operators --------------------------------------------------------------------
 		  //------ Floating-point input operator ----------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const DecimalpointFormat<T>& Data);
 
 
 		// * ----- Precisionformat-specific input operators -----------------------------------------------------------------------
 		  //------ Floating-point input operator ----------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const PrecisionFormat<T>& Data);
 
 
 		// * ----- Specialnumberformat-specific input operators -------------------------------------------------------------------
 		  //------ Floating-point input operator ----------------------------------------------------------------------------------
 
-		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const SpecialnumberFormat<T>& Data);
 
 
 		// * ----- CStringformat-specific input operators -------------------------------------------------------------------------
 		  //------ Char* and Char[] input operator --------------------------------------------------------------------------------
 			
-		template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExeptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value, int>::type = 0>
+		template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExceptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value, int>::type = 0>
 		InStream& operator>>(const CStringFormat<T>& Data);
 
 
 		// * ----- Multiple format-specific output operators ----------------------------------------------------------------------
 		  //------ Signed integral output operator (base- and case-specific) ------------------------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<IsSigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<IsSigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Unsigned integral input operator (base- and case-specific) -----------------------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<IsUnsigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<IsUnsigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Floating-point input operator (decimalpoint- and precision-specific) -------------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Floating-point input operator (decimalpoint- and specialnumber-specific) ---------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Floating-point input operator (precision- and specialnumber-specific) ------------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Floating-point input operator (decimalpoint-, precision- and specialnumber-specific) ---------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 3 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 3 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 		  //------ Char* and Char[] input operator (CString- and Case-specific) ---------------------------------------------------
 
-		template <typename T, typename... FmtTs, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExeptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<CStringFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
+		template <typename T, typename... FmtTs, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExceptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<CStringFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type = 0>
 		InStream& operator>>(const MultiFormat<T, FmtTs...>& Data);
 
 
@@ -941,7 +941,7 @@ namespace ino {
 	// * ----- Baseformat-specific input operators --------------------------------------------------------------------------------
 	  //------ Signed integral output operator ------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<IsSigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<IsSigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const BaseFormat<T>& Data) {
 		DefaultSignedInt(Data.Var, Data.Val);
 		FinishTransfer();
@@ -950,7 +950,7 @@ namespace ino {
 
 	  //------ Unsigned integral output operator ----------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<IsUnsigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<IsUnsigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const BaseFormat<T>& Data) {
 		DefaultUnsignedInt(Data.Var, Data.Val);
 		FinishTransfer();
@@ -961,7 +961,7 @@ namespace ino {
 	// * ----- Caseformat-specific input operators --------------------------------------------------------------------------------
 	  //------ Char output operator -----------------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_same<char, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_same<char, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const CaseFormat<T>& Data) {
 		DefaultChar(Data.Var, Data.Val);
 		if (CanRead()) {
@@ -974,7 +974,7 @@ namespace ino {
 
 	  //------ String input operator ----------------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_same<String, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_same<String, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const CaseFormat<T>& Data) {
 		DefaultString(Data.Var, Data.Val);
 		FinishTransfer();
@@ -985,7 +985,7 @@ namespace ino {
 	// * ----- Boolformat-specific input operators --------------------------------------------------------------------------------
 	  //------ Bool input operator ------------------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_same<bool, typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_same<bool, typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const BoolFormat<T>& Data) {
 		DefaultBool(Data.Var, Data.Val);
 		FinishTransfer();
@@ -996,7 +996,7 @@ namespace ino {
 	// * ----- Decimalpointformat-specific input operators ------------------------------------------------------------------------
 	  //------ Floating-point input operator --------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const DecimalpointFormat<T>& Data) {
 		DefaultFloat(Data.Var, Data.Val);
 		FinishTransfer();
@@ -1007,7 +1007,7 @@ namespace ino {
 	// * ----- Precisionformat-specific input operators ---------------------------------------------------------------------------
 	  //------ Floating-point input operator --------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const PrecisionFormat<T>& Data) {
 		DefaultFloat(Data.Var, Data.Val);
 		FinishTransfer();
@@ -1018,7 +1018,7 @@ namespace ino {
 	// * ----- Specialnumberformat-specific input operators -----------------------------------------------------------------------
 	  //------ Floating-point input operator --------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const SpecialnumberFormat<T>& Data) {
 		DefaultFloat(Data.Var, Data.Val);
 		FinishTransfer();
@@ -1028,7 +1028,7 @@ namespace ino {
 	// * ----- CStringformat-specific input operators -----------------------------------------------------------------------------
 	  //------ Char* and Char[] input operator ------------------------------------------------------------------------------------
 		
-	template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExeptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value, int>::type>
+	template <typename T, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExceptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const CStringFormat<T>& Data) {
 		DefaultCString(Data.Var, Data.Val);
 		FinishTransfer();
@@ -1039,7 +1039,7 @@ namespace ino {
 	// * ----- Multiple format-specific output operators --------------------------------------------------------------------------
 	  //------ Signed integral output operator (base- and case-specific) ----------------------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<IsSigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<IsSigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultSignedInt(Data.Var, Data.template Get<BaseFormats>(), Data.template Get<CaseFormats>());
 		FinishTransfer();
@@ -1048,7 +1048,7 @@ namespace ino {
 
 	  //------ Unsigned integral input operator (base- and case-specific) --------------------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<IsUnsigned<typename ReduceTypeExeptConst<T>::type>::value && std::is_integral<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<IsUnsigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<BaseFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultUnsignedInt(Data.Var, Data.template Get<BaseFormats>(), Data.template Get<CaseFormats>());
 		FinishTransfer();
@@ -1057,7 +1057,7 @@ namespace ino {
 
 	  //------ Floating-point input operator (decimalpoint- and precision-specific) ----------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultFloat(Data.Var, Data.template Get<DecimalpointFormats>(), Data.template Get<PrecisionFormats>());
 		FinishTransfer();
@@ -1066,7 +1066,7 @@ namespace ino {
 
 	  //------ Floating-point input operator (decimalpoint- and specialnumber-specific) ------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultFloat(Data.Var, Data.template Get<DecimalpointFormats>(), Data.template Get<SpecialnumberFormats>());
 		FinishTransfer();
@@ -1075,7 +1075,7 @@ namespace ino {
 
 	  //------ Floating-point input operator (precision- and specialnumber-specific) ---------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultFloat(Data.Var, Data.template Get<PrecisionFormats>(), Data.template Get<SpecialnumberFormats>());
 		FinishTransfer();
@@ -1084,7 +1084,7 @@ namespace ino {
 
 	  //------ Floating-point input operator (decimalpoint-, precision- and specialnumber-specific) ------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExeptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 3 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<std::is_floating_point<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 3 && MultiFormat<T, FmtTs...>::template Contains<DecimalpointFormats>::value && MultiFormat<T, FmtTs...>::template Contains<PrecisionFormats>::value && MultiFormat<T, FmtTs...>::template Contains<SpecialnumberFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultFloat(Data.Var, Data.template Get<DecimalpointFormats>(), Data.template Get<PrecisionFormats>(), Data.template Get<SpecialnumberFormats>());
 		FinishTransfer();
@@ -1093,7 +1093,7 @@ namespace ino {
 
 	  //------ Char* and Char[] input operator (CString- and Case-specific) ------------------------------------------------------
 		
-	template <typename T, typename... FmtTs, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExeptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<CStringFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
+	template <typename T, typename... FmtTs, typename std::enable_if<(std::is_same<char*, typename ReduceTypeExceptConst<T>::type>::value || IsElementTypeConsiderConst<char, T>::value) && std::is_lvalue_reference<T>::value && sizeof...(FmtTs) == 2 && MultiFormat<T, FmtTs...>::template Contains<CStringFormats>::value && MultiFormat<T, FmtTs...>::template Contains<CaseFormats>::value, int>::type>
 	InStream& InStream::operator>>(const MultiFormat<T, FmtTs...>& Data) {
 		DefaultCString(Data.Var, Data.template Get<CStringFormats>(), Data.template Get<CaseFormats>());
 		FinishTransfer();
