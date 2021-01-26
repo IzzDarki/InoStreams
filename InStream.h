@@ -233,7 +233,7 @@ namespace ino {
 				while (CanRead())
 				{
 					auto Num = CharToNum(Read());
-					if (Num > Base.BaseVal)
+					if (Num >= Base.BaseVal)
 					{
 						SetFailFlag(Fails::WrongBase);
 						ClearAndBreak();
@@ -940,7 +940,11 @@ namespace ino {
 
 	// * ----- Baseformat-specific input operators --------------------------------------------------------------------------------
 	  //------ Signed integral output operator ------------------------------------------------------------------------------------
-		
+
+	/**
+	 * @brief Input operator for signed integrals with BaseFormat
+	 * @details If the stream cannot be read with the specified basis, reading is aborted and the Fail Flag ::ino::InStream::Fails::WrongBase is set
+	 */
 	template <typename T, typename std::enable_if<IsSigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const BaseFormat<T>& Data) {
 		DefaultSignedInt(Data.Var, Data.Val);
@@ -949,7 +953,7 @@ namespace ino {
 	}
 
 	  //------ Unsigned integral output operator ----------------------------------------------------------------------------------
-		
+	
 	template <typename T, typename std::enable_if<IsUnsigned<typename ReduceTypeExceptConst<T>::type>::value && std::is_integral<typename ReduceTypeExceptConst<T>::type>::value && std::is_lvalue_reference<T>::value, int>::type>
 	InStream& InStream::operator>>(const BaseFormat<T>& Data) {
 		DefaultUnsignedInt(Data.Var, Data.Val);
