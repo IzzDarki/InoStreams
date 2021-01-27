@@ -10,12 +10,12 @@
 
 #ifndef INO_OUTSTREAM_NANFUNC
 #include <math.h>
-#define INO_OUTSTREAM_NANFUNC(Arg) isnan(Arg)
+#define INO_OUTSTREAM_NANFUNC(Arg) ino::IEEE754::isnan(Arg)
 #endif
 
 #ifndef INO_OUTSTREAM_INFFUNC
 #include <math.h>
-#define INO_OUTSTREAM_INFFUNC(Arg) (isinf(Arg) == 1)
+#define INO_OUTSTREAM_INFFUNC(Arg) ::ino::IEEE754::isinf(Arg)
 #endif
 
 #ifndef INO_OUTSTREAM_NINFFUNC
