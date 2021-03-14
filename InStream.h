@@ -26,7 +26,6 @@ namespace ino {
 			WrongCase = INO_INSTREAM_BIT(6),
 			WrongDecimalPoint = INO_INSTREAM_BIT(7),
 			WrongPrecision = INO_INSTREAM_BIT(8),
-			WrongSpecialNum = INO_INSTREAM_BIT(9),
 			WrongCString = INO_INSTREAM_BIT(10),
 			NoData = INO_INSTREAM_BIT(11),
 		};
@@ -281,6 +280,7 @@ namespace ino {
 					{
 						SetFailFlag(Fails::WrongBase);
 						ClearAndBreak();
+						return;
 					}
 					Data = (Data * Base.BaseVal) + Num;
 				}
@@ -377,8 +377,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -390,11 +391,29 @@ namespace ino {
 				{
 					auto Char = Read();
 					if (Char == '.' || Char == ',')
+					{
+						if (DecimalPlace)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
 						DecimalPlace = 1;
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
+					}
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (Negative)
 					Data = -Data;
@@ -417,8 +436,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -445,10 +465,20 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (Negative)
 					Data = -Data;
@@ -471,8 +501,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -493,16 +524,27 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (CanRead())
 				{
 					SetFailFlag(Fails::WrongPrecision);
 					ClearAndBreak();
-				} // in Release ClearAndBreak(); instead of if statement
+					return;
+				}
 				if (Negative)
 					Data = -Data;
 			}
@@ -524,8 +566,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -537,11 +580,29 @@ namespace ino {
 				{
 					auto Char = Read();
 					if (Char == '.' || Char == ',')
+					{
+						if (DecimalPlace)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
 						DecimalPlace = 1;
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
+					}
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (Negative)
 					Data = -Data;
@@ -564,8 +625,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -592,16 +654,27 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (CanRead())
 				{
 					SetFailFlag(Fails::WrongPrecision);
 					ClearAndBreak();
-				} // in Release ClearAndBreak(); instead of if statement
+					return;
+				}
 				if (Negative)
 					Data = -Data;
 			}
@@ -623,8 +696,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -651,10 +725,20 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (Negative)
 					Data = -Data;
@@ -677,8 +761,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -699,16 +784,27 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + CharToNum(Digit);
+					}
 				}
 				if (CanRead())
 				{
 					SetFailFlag(Fails::WrongPrecision);
 					ClearAndBreak();
-				} // in Release ClearAndBreak(); instead of if statement
+					return;
+				}
 				if (Negative)
 					Data = -Data;
 			}
@@ -730,8 +826,9 @@ namespace ino {
 						Data = -INFINITY;
 					else
 					{
-						SetFailFlag(Fails::WrongSpecialNum);
+						SetFailFlag(Fails::NotANumber);
 						ClearAndBreak();
+						return;
 					}
 					return;
 				}
@@ -758,16 +855,27 @@ namespace ino {
 						}
 						DecimalPlace = 1;
 					}
-					else if (DecimalPlace)
-						Data += static_cast<typename std::decay<T>::type>(CharToNum(Char)) / Power(10, DecimalPlace++);
 					else
-						Data = (Data * 10) + CharToNum(Char);
+					{
+						auto Digit = CharToNum(Char);
+						if (Digit >= 10)
+						{
+							SetFailFlag(Fails::NotANumber);
+							ClearAndBreak();
+							return;
+						}
+						if (DecimalPlace)
+							Data += static_cast<typename std::decay<T>::type>(Digit) / Power(10, DecimalPlace++);
+						else
+							Data = (Data * 10) + Digit;
+					}
 				}
 				if (CanRead())
 				{
 					SetFailFlag(Fails::WrongPrecision);
 					ClearAndBreak();
-				} // in Release ClearAndBreak(); instead of if statement
+					return;
+				}
 				if (Negative)
 					Data = -Data;
 			}
@@ -786,6 +894,7 @@ namespace ino {
 					{
 						SetFailFlag(Fails::NotABool);
 						ClearAndBreak();
+						return;
 					}
 				}
 				else if (Peek() == '1')
@@ -796,6 +905,7 @@ namespace ino {
 					{
 						SetFailFlag(Fails::NotABool);
 						ClearAndBreak();
+						return;
 					}
 				}
 				else
@@ -883,6 +993,7 @@ namespace ino {
 				{
 					SetFailFlag(Fails::WrongCString);
 					ClearAndBreak();
+					return;
 				}
 			}
 			else
@@ -901,6 +1012,7 @@ namespace ino {
 			{
 				SetFailFlag(Fails::WrongCString);
 				ClearAndBreak();
+				return;
 			}
 		}
 		template <typename T>
@@ -916,6 +1028,7 @@ namespace ino {
 				{
 					SetFailFlag(Fails::WrongCString);
 					ClearAndBreak();
+					return;
 				}
 			}
 			else
@@ -933,6 +1046,7 @@ namespace ino {
 			{
 				SetFailFlag(Fails::WrongCString);
 				ClearAndBreak();
+				return;
 			}
 		}
 
@@ -942,6 +1056,7 @@ namespace ino {
 	  //------ Signed integral output operator ------------------------------------------------------------------------------------
 
 	/**
+	 * TODO rewrite this (old)
 	 * @brief Input operator for signed integrals with BaseFormat
 	 * @details If the stream cannot be read with the specified basis, reading is aborted and the Fail Flag ::ino::InStream::Fails::WrongBase is set
 	 */
